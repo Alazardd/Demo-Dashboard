@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Fetch list of countries from World Bank API
-    axios.get('http://api.worldbank.org/v2/country/all?format=json')
+    axios.get('https://api.worldbank.org/v2/country/all?format=json')
       .then(response => {
         const countriesData = response.data[1];
         setCountries(countriesData);
@@ -29,7 +29,7 @@ const Dashboard = () => {
     const countryCodes = 'AFE;ABW;AFG;AFR;AFW;AGO;AFR;ALB;AND;ARB;ARE;ARG;ARM;CHL;CHI;CHE;ASM;ATG;AUS;AUT;AZE;BDI;BFA';
     const countryCodeList = countryCodes.split(';');
     const externalDebtRequests = countryCodeList.map(code => 
-      axios.get(`http://api.worldbank.org/v2/country/${code}/indicator/DT.DOD.DECT.CD?format=json`)
+      axios.get(`https://api.worldbank.org/v2/country/${code}/indicator/DT.DOD.DECT.CD?format=json`)
     );
 
     Promise.all(externalDebtRequests)
