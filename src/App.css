@@ -1,38 +1,196 @@
-.App {
-  text-align: center;
+/* Reset default styles and set global body styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  /* Base font size */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Styles for the main application container */
+.app {
+  display: flex;
+  flex-direction: column;
+  /* Ensure children stack vertically */
+  justify-content: center;
+  /* Vertically center content */
+  min-height: 60vh;
+  /* Smaller height */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  width: 90%;
+  /* Adjusted width to be slightly smaller */
+  margin: 0 auto;
+  /* Center horizontally */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Adjust max-width for different screen sizes */
+@media (max-width: 768px) {
+  .app {
+    width: 100%;
+    /* Ensure full width on smaller screens */
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Center content horizontally within .dashboard */
+.dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0 auto;
+  /* Center horizontally */
+}
+
+.dashboard h1 {
+  margin-bottom: 20px;
+}
+
+/* Styles for individual charts */
+.chart {
+  width: 90%;
+  max-width: 100%;
+  /* Responsive max-width */
+  margin: 20px 0;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.chart-title {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.chart-title h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Styles for chart controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.controls>* {
+  margin-right: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.controls label {
+  margin-right: 5px;
+}
+
+.controls select,
+.controls input[type="number"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.controls select {
+  width: 150px;
+}
+
+.controls input[type="number"] {
+  width: 80px;
+}
+
+.controls input[type="number"]:focus,
+.controls select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Styles for chart canvases */
+.chart canvas {
+  width: 100% !important;
+  /* Ensure the chart canvas fills its container */
+  height: auto !important;
+  /* Allow the chart canvas to adjust its height */
+}
+
+/* Styling for CountrySelector component */
+.country-selector {
+  margin-bottom: 20px;
+}
+
+.checkbox-list {
+  max-height: 100px;
+  /* Adjust height as needed */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+}
+
+.checkbox-list label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.checkbox-list input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Additional styles for the chart container */
+.chart-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 20px;
+}
+
+/* Styling for World Bank logo */
+.world-bank-logo {
+  width: 100px;
+  /* Adjust size as needed */
+  margin-right: 10px;
+  /* Space between logo and title */
+}
+
+/* Media queries for specific breakpoints */
+
+/* Example: Adjust layout for tablets and smaller screens */
+@media (max-width: 768px) {
+  .chart {
+    padding: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .controls select {
+    width: 120px;
+  }
+
+  .controls input[type="number"] {
+    width: 60px;
+  }
+}
+
+/* Example: Further adjustments for smaller mobile screens */
+@media (max-width: 480px) {
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls>* {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .controls select,
+  .controls input[type="number"] {
+    width: 100%;
+    margin-right: 0;
   }
 }
