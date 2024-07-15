@@ -43,9 +43,9 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
   const prepareChartData = (data, selectedCountryIds, startYear, endYear) => {
     const filteredData = filterDataByCountries(data, selectedCountryIds);
     const filteredByYear = filterDataByYearRange(filteredData, startYear, endYear);
-
+  
     const labels = [...new Set(filteredByYear.map(item => item.date))].sort();
-
+  
     const datasets = selectedCountryIds.map(countryId => {
       const countryData = filteredByYear.filter(item => item.countryiso3code === countryId);
       return {
@@ -56,10 +56,11 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
         }),
         fill: false,
         borderColor: getRandomColor(),
+        backgroundColor: getRandomColor(), // Add random background color for bar charts
         tension: 0.1
       };
     });
-
+  
     return {
       labels,
       datasets
