@@ -56,7 +56,7 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
         }),
         fill: false,
         borderColor: getRandomColor(),
-        backgroundColor: getRandomColor(), // Add random background color for bar charts
+        backgroundColor: getRandomColor(), 
         tension: 0.1
       };
     });
@@ -92,7 +92,7 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
         y: {
           ticks: {
             callback: function(value) {
-              return value + '%'; // Convert values to percentage
+              return value + '%';
             }
           }
         }
@@ -140,7 +140,7 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
           <input type="number" value={yearRange.end} onChange={(e) => onYearRangeChange(yearRange.start, e.target.value)} />
         </div>
 
-        {/* Render Education Chart based on educationChartType */}
+
         {renderEducationChart()}
       </div>
 
@@ -162,7 +162,7 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
           <input type="number" value={yearRange.end} onChange={(e) => onYearRangeChange(yearRange.start, e.target.value)} />
         </div>
 
-        {/* Render External Debt Chart based on externalDebtChartType */}
+
         {renderExternalDebtChart()}
       </div>
     </div>

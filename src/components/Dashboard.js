@@ -3,19 +3,18 @@ import axios from 'axios';
 import CountrySelector from './CountrySelector';
 import Chart from './Chart';
 import '../App.css';
-import worldBankLogo from '../assets/world_bank_logo.png'; // Import the World Bank logo image
+import worldBankLogo from '../assets/world_bank_logo.png'; 
 
 
 const Dashboard = () => {
   const [countries, setCountries] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
-  const [chartType, setChartType] = useState('line'); // Default chart type
-  const [yearRange, setYearRange] = useState({ start: 2000, end: 2020 }); // Default year range
+  const [chartType, setChartType] = useState('line'); 
+  const [yearRange, setYearRange] = useState({ start: 2000, end: 2020 }); 
   const [externalDebtData, setExternalDebtData] = useState([]);
   const [educationExpenditureData, setEducationExpenditureData] = useState([]);
 
   useEffect(() => {
-    // Fetch list of countries from World Bank API
     axios.get('https://api.worldbank.org/v2/country/all?format=json')
       .then(response => {
         const countriesData = response.data[1];
@@ -25,7 +24,6 @@ const Dashboard = () => {
         console.error('Error fetching countries data:', error);
       });
 
-    // Fetch external debt data for each country
     const countryCodes = 'AFE;ABW;AFG;AFR;AFW;AGO;AFR;ALB;AND;ARB;ARE;ARG;ARM;CHL;CHI;CHE;ASM;ATG;AUS;AUT;AZE;BDI;BFA';
     const countryCodeList = countryCodes.split(';');
     const externalDebtRequests = countryCodeList.map(code => 
@@ -41,7 +39,6 @@ const Dashboard = () => {
         console.error('Error fetching external debt data:', error);
       });
 
-    // Fetch education expenditure data (similar to the above approach)
     const educationExpenditureRequests = countryCodeList.map(code => 
       axios.get(`https://api.worldbank.org/v2/country/${code}/indicator/SE.XPD.TOTL.GB.ZS?format=json`)
     );
@@ -90,7 +87,7 @@ const Dashboard = () => {
       )}
       <div className="chart-container">
         <Chart
-          countries={selectedCountries} // Pass selected countries only
+          countries={selectedCountries}
           externalDebtData={filteredExternalDebtData}
           educationExpenditureData={filteredEducationExpenditureData}
           chartType={chartType}
