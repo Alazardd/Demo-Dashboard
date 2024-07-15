@@ -25,9 +25,11 @@ ChartJS.register(
   Legend
 );
 
-const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRange, onChartTypeChange, onYearRangeChange }) => {
+const Chart = ({ countries, externalDebtData, educationExpenditureData, onChartTypeChange }) => {
   const [educationChartType, setEducationChartType] = useState('line');
   const [externalDebtChartType, setExternalDebtChartType] = useState('line');
+  const [educationYearRange, setEducationYearRange] = useState({ start: 2000, end: 2020 });
+  const [externalDebtYearRange, setExternalDebtYearRange] = useState({ start: 2000, end: 2020 });
 
   const filterDataByCountries = (data, selectedCountryIds) => {
     return data.filter(item => selectedCountryIds.includes(item.countryiso3code));
@@ -43,9 +45,9 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
   const prepareChartData = (data, selectedCountryIds, startYear, endYear) => {
     const filteredData = filterDataByCountries(data, selectedCountryIds);
     const filteredByYear = filterDataByYearRange(filteredData, startYear, endYear);
-  
+
     const labels = [...new Set(filteredByYear.map(item => item.date))].sort();
-  
+
     const datasets = selectedCountryIds.map(countryId => {
       const countryData = filteredByYear.filter(item => item.countryiso3code === countryId);
       return {
@@ -56,11 +58,11 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
         }),
         fill: false,
         borderColor: getRandomColor(),
-        backgroundColor: getRandomColor(), 
+        backgroundColor: getRandomColor(),
         tension: 0.1
       };
     });
-  
+
     return {
       labels,
       datasets
@@ -84,8 +86,16 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
     onChartTypeChange(type);
   };
 
+  const handleEducationYearRangeChange = (start, end) => {
+    setEducationYearRange({ start, end });
+  };
+
+  const handleExternalDebtYearRangeChange = (start, end) => {
+    setExternalDebtYearRange({ start, end });
+  };
+
   const renderEducationChart = () => {
-    const educationChartData = prepareChartData(educationExpenditureData, countries, yearRange.start, yearRange.end);
+    const educationChartData = prepareChartData(educationExpenditureData, countries, educationYearRange.start, educationYearRange.end);
 
     const options = {
       scales: {
@@ -109,12 +119,24 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
   };
 
   const renderExternalDebtChart = () => {
-    const externalDebtChartData = prepareChartData(externalDebtData, countries, yearRange.start, yearRange.end);
+    const externalDebtChartData = prepareChartData(externalDebtData, countries, externalDebtYearRange.start, externalDebtYearRange.end);
+
+    const options = {
+      scales: {
+        y: {
+          ticks: {
+            callback: function(value) {
+              return value;
+            }
+          }
+        }
+      }
+    };
 
     if (externalDebtChartType === 'line') {
-      return <Line data={externalDebtChartData} />;
+      return <Line data={externalDebtChartData} options={options} />;
     } else if (externalDebtChartType === 'bar') {
-      return <Bar data={externalDebtChartData} />;
+      return <Bar data={externalDebtChartData} options={options} />;
     } else if (externalDebtChartType === 'pie') {
       return <Pie data={externalDebtChartData} />;
     }
@@ -135,11 +157,10 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
           </select>
 
           <label>Year Range:</label>
-          <input type="number" value={yearRange.start} onChange={(e) => onYearRangeChange(e.target.value, yearRange.end)} />
+          <input type="number" value={educationYearRange.start} onChange={(e) => handleEducationYearRangeChange(e.target.value, educationYearRange.end)} />
           <span> to </span>
-          <input type="number" value={yearRange.end} onChange={(e) => onYearRangeChange(yearRange.start, e.target.value)} />
+          <input type="number" value={educationYearRange.end} onChange={(e) => handleEducationYearRangeChange(educationYearRange.start, e.target.value)} />
         </div>
-
 
         {renderEducationChart()}
       </div>
@@ -157,11 +178,10 @@ const Chart = ({ countries, externalDebtData, educationExpenditureData, yearRang
           </select>
 
           <label>Year Range:</label>
-          <input type="number" value={yearRange.start} onChange={(e) => onYearRangeChange(e.target.value, yearRange.end)} />
+          <input type="number" value={externalDebtYearRange.start} onChange={(e) => handleExternalDebtYearRangeChange(e.target.value, externalDebtYearRange.end)} />
           <span> to </span>
-          <input type="number" value={yearRange.end} onChange={(e) => onYearRangeChange(yearRange.start, e.target.value)} />
+          <input type="number" value={externalDebtYearRange.end} onChange={(e) => handleExternalDebtYearRangeChange(externalDebtYearRange.start, e.target.value)} />
         </div>
-
 
         {renderExternalDebtChart()}
       </div>
