@@ -24,7 +24,7 @@ const Dashboard = () => {
         console.error('Error fetching countries data:', error);
       });
 
-    const countryCodes = 'AFE;ABW;AFG;AFR;AFW;AGO;AFR;ALB;AND;ARB;ARE;ARG;ARM;CHL;CHI;CHE;ASM;ATG;AUS;AUT;AZE;BDI;BFA';
+    const countryCodes = 'AFE;ABW;AFG;AFR;AFW;AGO;AFR;ALB;AND;ARB;ARE;ARG;ARM;CHL;CHI;CHE;ASM;ATG;AUS;AUT;AZE;BDI;BFA;BEL;BEN;BGD;BGR;BHR;BHS;BIH;BLR;BLZ;BMU;BOL;BRA;BRB;BRN;BTN;BWA;CAF;CAN;';
     const countryCodeList = countryCodes.split(';');
     const externalDebtRequests = countryCodeList.map(code => 
       axios.get(`https://api.worldbank.org/v2/country/${code}/indicator/DT.DOD.DECT.CD?format=json`)
